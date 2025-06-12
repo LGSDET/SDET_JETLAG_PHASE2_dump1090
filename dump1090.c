@@ -2633,6 +2633,7 @@ void backgroundTasks(void) {
     }
 }
 
+#ifndef UNIT_TEST
 int main(int argc, char **argv) {
     int j;
 
@@ -2802,6 +2803,7 @@ int main(int argc, char **argv) {
     }
     return 0;
 }
+#endif
 
 /* Verify client password against stored hash */
 int verifyPassword(const char *received_password) {
