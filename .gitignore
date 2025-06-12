@@ -1,0 +1,11 @@
+*.o
+<<<<<<< HEAD
+dump1090
+testfiles/*.bin
+misc
+frames.js
+.*.swp
+=======
+mode1090
+testfiles/test*.bin
+>>>>>>> 7ca5a4b (Initial commit of Dump1090, a simple Mode S decoder.)
