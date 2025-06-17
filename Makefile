@@ -8,7 +8,7 @@ CFLAGS ?= -O2 -g -Wall -W $(shell pkg-config --cflags librtlsdr) $(OPENSSL_INC) 
 CFLAGS += $(RTLSDR_INC)
 CFLAGS += $(JSONC_INC)
 
-LDLIBS += $(shell pkg-config --libs librtlsdr) $(OPENSSL_LIB) -L/opt/homebrew/lib -lssl -lcrypto -lpthread -lm -ljson-c
+LDLIBS += $(shell pkg-config --libs librtlsdr) $(OPENSSL_LIB) -L/opt/homebrew/lib -lssl -lcrypto -lpthread -lm -ljson-c -lrtlsdr
 
 CC?=gcc
 PROGNAME=dump1090

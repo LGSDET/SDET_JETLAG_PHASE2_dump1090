@@ -2817,7 +2817,7 @@ int verifyPassword(const char *received_password) {
     size_t size;
 
     // Read config file
-    fp = fopen("/etc/ssl/tripleS/config.json", "r");
+    fp = fopen("./etc/ssl/tripleS/config.json", "r");
     if (!fp) {
         fprintf(stderr, "Error opening config.json\n");
         return 0;
