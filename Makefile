@@ -10,6 +10,9 @@ CFLAGS ?= -O2 -g -Wall -Wno-unused-result $(shell pkg-config --cflags librtlsdr)
 CFLAGS += $(RTLSDR_INC)
 CFLAGS += $(JSONC_INC)
 
+CFLAGS += --coverage
+LDFLAGS += --coverage
+
 LDLIBS += $(shell pkg-config --libs librtlsdr) $(OPENSSL_LIB) -L/opt/homebrew/lib -lssl -lcrypto -lpthread -lm -ljson-c -lrtlsdr
 
 CC?=gcc
