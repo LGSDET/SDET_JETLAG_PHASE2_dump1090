@@ -4,7 +4,9 @@ OPENSSL_LIB := $(shell if [ -d /opt/homebrew/opt/openssl@3/lib ]; then echo -L/o
 RTLSDR_INC := -I$(shell brew --prefix librtlsdr)/include
 JSONC_INC := -I$(shell brew --prefix json-c)/include/json-c
 
-CFLAGS ?= -O2 -g -Wall -W $(shell pkg-config --cflags librtlsdr) $(OPENSSL_INC) -I/opt/homebrew/include
+#CFLAGS ?= -O2 -g -Wall -W $(shell pkg-config --cflags librtlsdr) $(OPENSSL_INC) -I/opt/homebrew/include
+CFLAGS ?= -O2 -g -Wall -Wno-unused-result $(shell pkg-config --cflags librtlsdr) $(OPENSSL_INC) -I/opt/homebrew/include
+
 CFLAGS += $(RTLSDR_INC)
 CFLAGS += $(JSONC_INC)
 
