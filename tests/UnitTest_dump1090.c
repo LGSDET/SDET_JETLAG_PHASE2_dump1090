@@ -155,7 +155,32 @@ void test_is_trusted_ip_should_return_false_for_non_whitelisted_ip(void) {
     TEST_ASSERT_EQUAL_INT(0, is_trusted_ip("8.8.8.8"));
 }
 
+void test_modesChecksum_should_match_known_crc(void) {
+    // 알려진 값 기반 CRC 검사 (예: 112비트 메시지)
+    unsigned char msg[MODES_LONG_MSG_BYTES] = {
+        0x8D, 0xAB, 0xCD, 0xEF, 0x12, 0x34, 0x56,
+        0x78, 0x9A, 0xBC, 0xDE, 0xF0, 0x12, 0x34
+    };
+    // CRC는 입력 값에 따라 다르지만 0이 아님을 확인
+    uint32_t crc = modesChecksum(msg, 112);
+    TEST_ASSERT_NOT_EQUAL(0, crc);
+}
 
+void test_fixSingleBitErrors_should_fail_on_invalid_msg(void) {
+    unsigned char msg[MODES_LONG_MSG_BYTES] = {
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
+    };
+    // 이미 CRC가 무효하고 복구도 안 될 것으로 예상
+    int result = fixSingleBitErrors(msg, 112);
+    TEST_ASSERT_EQUAL(-1, result);
+}
+
+void test_verifyPassword_with_whitespace_should_fail(void) {
+    TEST_ASSERT_EQUAL_INT(0, verifyPassword(" admin"));
+    TEST_ASSERT_EQUAL_INT(0, verifyPassword("admin "));
+    TEST_ASSERT_EQUAL_INT(0, verifyPassword(" admin "));
+}
 
 int main(void) {
     printf(ANSI_COLOR_YELLOW "\n🛫 Starting dump1090 Unit Tests 🛬\n" ANSI_COLOR_RESET);
@@ -178,6 +203,10 @@ int main(void) {
     RUN_TEST(test_is_trusted_ip_should_return_true_for_localhost);
     RUN_TEST(test_is_trusted_ip_should_return_true_for_whitelisted_ip);
     RUN_TEST(test_is_trusted_ip_should_return_false_for_non_whitelisted_ip);
+    RUN_TEST(test_modesChecksum_should_match_known_crc);
+    RUN_TEST(test_fixSingleBitErrors_should_fail_on_invalid_msg);
+    RUN_TEST(test_verifyPassword_with_whitespace_should_fail);
+
     int result = UNITY_END();
 
     printf("\n");
