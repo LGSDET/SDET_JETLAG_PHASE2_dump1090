@@ -34,15 +34,15 @@ test: test_dump1090 test_tls_mock test_accept_clients
 
 # 기본 dump1090 유닛 테스트
 test_dump1090: Unity/unity.o tests/UnitTest_dump1090.o dump1090.o anet.o
-	$(CC) -g -o test_dump1090 Unity/unity.o tests/UnitTest_dump1090.o dump1090.o anet.o $(LDFLAGS) $(LDLIBS)
+	$(CC) -g -o test_dump1090 Unity/unity.o tests/UnitTest_dump1090.o dump1090.o anet.o $(LDFLAGS) $(LDLIBS) -lgcov
 
 # Mock 테스트 (init_tls)
 test_tls_mock: tests/test_tls_mock.o Unity/unity.o
-	$(CC) -g -o test_tls_mock tests/test_tls_mock.o Unity/unity.o $(LDFLAGS) $(LDLIBS)
+	$(CC) -g -o test_tls_mock tests/test_tls_mock.o Unity/unity.o $(LDFLAGS) $(LDLIBS) -lgcov
 
 # accept 클라이언트 처리 테스트
 test_accept_clients: tests/test_accept_clients.o Unity/unity.o
-	$(CC) -g -o test_accept_clients tests/test_accept_clients.o Unity/unity.o $(LDFLAGS) $(LDLIBS)
+	$(CC) -g -o test_accept_clients tests/test_accept_clients.o Unity/unity.o $(LDFLAGS) $(LDLIBS) -lgcov
 
 Unity/unity.o: Unity/unity.c
 	$(CC) $(CFLAGS) -c Unity/unity.c -o Unity/unity.o
